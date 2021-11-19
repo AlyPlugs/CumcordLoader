@@ -18,12 +18,12 @@ export default class CumcordLoader extends UPlugin {
           applicationId: this.appId,
           execute: async eArgs => {
             const { options } = eArgs;
-            if (eArgs.options.add) {
-              let plugUrl = options.add[0].text;
+            if (options.add) {
+              let plugUrl = options.add;
               if (
                 plugUrl.match(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/g)
               ) {
-                plugUrl = options.add[0].text.replace(/\/\s*$/, '');
+                plugUrl = options.add.replace(/\/\s*$/, '');
                 const res = await fetch(`${plugUrl}/plugin.json`);
                 const manifest = await res.json();
                 console.log(manifest.name);
@@ -38,7 +38,7 @@ export default class CumcordLoader extends UPlugin {
             }
 
             if (options.remove) return {
-              content: `Removed \`${options.remove[0].text}\``
+              content: `Removed \`${options.remove}\``
             };
           },
           options: [
