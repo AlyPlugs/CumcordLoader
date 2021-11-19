@@ -16,8 +16,9 @@ export default class CumcordLoader extends UPlugin {
           description: 'Manage Cumcord plugins.',
           aliases: [],
           applicationId: this.appId,
-          execute: async options => {
-            if (options.add) {
+          execute: async eArgs => {
+            const { options } = eArgs;
+            if (eArgs.options.add) {
               let plugUrl = options.add[0].text;
               if (
                 plugUrl.match(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/g)
@@ -36,11 +37,9 @@ export default class CumcordLoader extends UPlugin {
               };
             }
 
-            if (options.remove)
-              // this.window.cumcord.plugins.removePlugin(options.remove[0].text);
-              return {
-                content: `Removed \`${options.remove[0].text}\``
-              };
+            if (options.remove) return {
+              content: `Removed \`${options.remove[0].text}\``
+            };
           },
           options: [
             {
